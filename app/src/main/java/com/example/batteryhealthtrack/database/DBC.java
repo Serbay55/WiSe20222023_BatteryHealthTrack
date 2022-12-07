@@ -20,10 +20,10 @@ public class DBC {
     }
     private static Connection connection;
 
-    public synchronized static void runSQL(String query) throws SQLException {
+    public synchronized static void rSQL(String query) throws SQLException {
         connection.createStatement().execute(query);
     }
-    public static ResultSet runSQLquery(String query) throws SQLException {
+    public static ResultSet rSQLq(String query) throws SQLException {
         return connection.createStatement().executeQuery(query);
     }
 
