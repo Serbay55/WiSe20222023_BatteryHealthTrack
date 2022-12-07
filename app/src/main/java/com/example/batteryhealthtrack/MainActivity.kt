@@ -21,6 +21,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.batteryhealthtrack.ui.main.SectionsPagerAdapter
 import com.example.batteryhealthtrack.databinding.ActivityMainBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
 import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
@@ -68,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun requestNewLocationData() {
-        var mLocationRequest = LocationRequest()
+        var mLocationRequest = com.google.android.gms.location.LocationRequest()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         mLocationRequest.interval = 0
         mLocationRequest.fastestInterval = 0
@@ -107,7 +111,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private lateinit var binding: ActivityMainBinding
-
+    lateinit var mFusedLocationClient: FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {        super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -124,5 +128,8 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        getLastLocation()
     }
 }
